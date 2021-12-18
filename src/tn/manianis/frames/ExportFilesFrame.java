@@ -9,17 +9,13 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.SwingUtilities;
-import javax.swing.table.TableColumn;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import tn.manianis.XmlFile;
 import tn.manianis.XmlFilesFinder;
-import tn.manianis.editors.TableCellEditorBase;
-import tn.manianis.entities.EleveRow;
 import tn.manianis.entities.Groupe;
 import tn.manianis.entities.entities.secondary.XmlFileEntry;
 import tn.manianis.entities.entities.secondary.XmlFileEntryCollection;
-import tn.manianis.renderers.DefaultCellRenderer;
 import tn.manianis.tablemodels.XmlFilesEntriesModel;
 import tn.manianis.utils.ComponentUtils;
 
