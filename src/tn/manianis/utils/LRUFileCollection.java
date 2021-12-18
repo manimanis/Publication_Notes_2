@@ -1,8 +1,6 @@
 package tn.manianis.utils;
 
 import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.function.Consumer;
 import java.util.prefs.Preferences;
 
 public class LRUFileCollection implements Iterable<LRUFile> {

@@ -122,6 +122,18 @@ public class EleveRow implements CloneableItem<EleveRow> {
         }
         this.observation = observation;
     }
+    
+    public Object[] getAsArray(){
+        int colCount = 5 + notes.length;
+        Object[] values = new Object[colCount];
+        values[0] = getNumOrdre();
+        values[1] = getIdentEleve();
+        values[2] = getNomEleve();
+        values[colCount - 2] = getMoyenne();
+        values[colCount - 1] = getObservation();
+        System.arraycopy(notes, 0, values, 3, notes.length);
+        return values;
+    }
 
     @Override
     public EleveRow cloneItem() {

@@ -125,6 +125,19 @@ public class MainFrame extends JFrame {
     public static DbConnection getConnection() {
         return dbConnection;
     }
+    
+    public ExportFilesFrame createExportFilesFrame() {
+        try {
+            ExportFilesFrame fn = new ExportFilesFrame();
+            fn.setVisible(true);
+            desktopPane.add(fn);
+            return fn;
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
 
     public FeuilleNoteFrame createFeuilleNote(String filename) {
         try {
@@ -309,6 +322,7 @@ public class MainFrame extends JFrame {
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         fileOpen = new javax.swing.JMenuItem();
+        fileExport = new javax.swing.JMenuItem();
         fileMenuSeparator1 = new javax.swing.JPopupMenu.Separator();
         fileMenuSeparator2 = new javax.swing.JPopupMenu.Separator();
         fileExit = new javax.swing.JMenuItem();
@@ -354,6 +368,14 @@ public class MainFrame extends JFrame {
             }
         });
         fileMenu.add(fileOpen);
+
+        fileExport.setText("تصدير...");
+        fileExport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileExportActionPerformed(evt);
+            }
+        });
+        fileMenu.add(fileExport);
         fileMenu.add(fileMenuSeparator1);
         fileMenu.add(fileMenuSeparator2);
 
@@ -421,10 +443,16 @@ public class MainFrame extends JFrame {
         JOptionPane.showMessageDialog(rootPane, "برنامج من إعداد محمد انيس ماني", getTitle(), JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_helpAboutActionPerformed
 
+    private void fileExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileExportActionPerformed
+        ExportFilesFrame eff = createExportFilesFrame();
+        
+    }//GEN-LAST:event_fileExportActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnObservationFrame;
     private tn.manianis.components.DesktopScrollPane desktopPane;
     private javax.swing.JMenuItem fileExit;
+    private javax.swing.JMenuItem fileExport;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JPopupMenu.Separator fileMenuSeparator1;
     private javax.swing.JPopupMenu.Separator fileMenuSeparator2;
