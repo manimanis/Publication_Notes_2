@@ -14,7 +14,8 @@ public class DbConnection {
         if (dbConnection == null) {
             String currentFolder = System.getProperty("user.dir");
             System.out.println("Running in folder : " + currentFolder);
-            String dbFilePath = String.format("%s/testnotes", currentFolder);
+            //String dbFilePath = String.format("%s/testnotes", currentFolder);
+            String dbFilePath = String.format("%s/testnotes-v2", currentFolder);
             System.out.println("Searching for DB: " + dbFilePath);
             File dbFile = new File(dbFilePath + ".mv.db");
             if (dbFile.exists() && dbFile.isFile()) {
