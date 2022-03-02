@@ -19,6 +19,7 @@ public class EleveRow implements CloneableItem<EleveRow> {
     private Note[] notes;
     private Note moyenne;
     private String observation;
+	private String prenomTuteur;
 
     public EleveRow(int notesCount) {
         notes = new Note[notesCount];
@@ -56,6 +57,18 @@ public class EleveRow implements CloneableItem<EleveRow> {
     public void setNomEleve(String nomEleve) {
         this.nomEleve = nomEleve.replaceAll("ـ", "");
     }
+    
+    public String getPrenomTuteur() {
+		return prenomTuteur;
+	}
+
+	public void setPrenomTuteur(String prenom) {
+		this.prenomTuteur = prenom;
+	}
+	
+	public String getNomEleveComplet() {
+		return String.format("%s (%s)", nomEleve, prenomTuteur);
+	}
     
     public int getNotesCount() {
         return notes.length;
@@ -139,7 +152,6 @@ public class EleveRow implements CloneableItem<EleveRow> {
     public EleveRow cloneItem() {
         return new EleveRow(numOrdre, identEleve, nomEleve, notes, moyenne.cloneItem(), observation);
     }
-
     
     
 }
