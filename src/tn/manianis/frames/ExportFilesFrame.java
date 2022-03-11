@@ -13,6 +13,8 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import tn.manianis.XmlFile;
 import tn.manianis.XmlFilesFinder;
+import tn.manianis.entities.Epreuve;
+import tn.manianis.entities.EpreuvesCollection;
 import tn.manianis.entities.Groupe;
 import tn.manianis.entities.entities.secondary.XmlFileEntry;
 import tn.manianis.entities.entities.secondary.XmlFileEntryCollection;
@@ -206,6 +208,21 @@ public class ExportFilesFrame extends JInternalFrame {
                 }
                 try {
                     Groupe groupe = XmlFile.loadFile(fileEntry.getFilepath());
+                    EpreuvesCollection epreuves = MainFrame.getConnection().fetchCoefficients(
+                            groupe.getDiscipline().getCodeMatiere(),
+                            groupe.getClasse().getCodeNiveau(),
+                            groupe.getPeriodeExamen().getCodePeriodeExamen());
+                    for (Epreuve epreuve : epreuves) {
+                        int p = groupe.getEpreuves().findByIds(
+                                epreuve.getDiscipline().getCodeMatiere(),
+                                epreuve.getCodeTypeMatiere(),
+                                epreuve.getCodeTypeEpreuve()
+                        );
+                        if (p != -1) {
+                            groupe.getEpreuve(p).setCoefficient(epreuve.getCoefficient());
+                        }
+                    }
+                    groupe.getRowCollection().recalcAverages();
                     createCSVFile(fileEntry.getFilepath(), groupe);
                 } catch (Exception ex) {
                     Logger.getLogger(ExportFilesFrame.class.getName()).log(Level.SEVERE, null, ex);
