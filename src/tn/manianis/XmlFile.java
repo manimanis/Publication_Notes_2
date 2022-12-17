@@ -121,6 +121,7 @@ public class XmlFile {
                 
                 addElement(doc, noteelev, "numOrdre", row.getNumOrdre().toString());
                 addElement(doc, noteelev, "prenomnom", row.getNomEleve());
+                addElement(doc, noteelev, "prenomtute", row.getPrenomTuteur());
                 addElement(doc, noteelev, "CODEMATI", epreuve.getDiscipline().getCodeMatiere().toString());
                 addElement(doc, noteelev, "CODETYPEMATI", epreuve.getCodeTypeMatiere().toString());
                 addElement(doc, noteelev, "CODETYPEEPRE", epreuve.getCodeTypeEpreuve().toString());
@@ -224,6 +225,7 @@ public class XmlFile {
                         groupe.getRowCollection().add(eleveRow);
                         eleveRow.setIdentEleve(hm.get("IDENELEV"));
                         eleveRow.setNomEleve(hm.get("prenomnom"));
+                        eleveRow.setPrenomTuteur(hm.get("prenomtute").trim());
                         eleveRow.setNumOrdre(Integer.parseInt(hm.get("numOrdre")));
                         eleveRow.setObservation(hm.get("obseprof"));
                         pRow = eleves.size() - 1;

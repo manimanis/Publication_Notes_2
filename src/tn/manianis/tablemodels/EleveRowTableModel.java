@@ -158,7 +158,7 @@ public class EleveRowTableModel extends AbstractTableModel {
         } else if (idx == 1) {
             return eleveRow.getIdentEleve();
         } else if (idx == 2) {
-            return eleveRow.getNomEleve();
+            return eleveRow.getNomEleveComplet();
         } else if (idx >= 3 && idx < (3 + groupe.getEpreuves().size())) {
             return eleveRow.getNotes()[idx - 3];
         } else if (idx == 3 + groupe.getEpreuves().size()) {

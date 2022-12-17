@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+<<<<<<< HEAD
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="lib" path="dist/lib/AbsoluteLayout.jar"/>
 	<classpathentry kind="lib" path="dist/lib/bcprov-jdk15on-1.64.jar"/>
+=======
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="lib" path="dist/lib/AbsoluteLayout.jar"/>
+	<classpathentry kind="lib" path="dist/lib/bcprov-jdk15on-1.68.jar"/>
+>>>>>>> aedac6da8ac8f577bd34ad3383802b5c92eb03e5
 	<classpathentry kind="lib" path="dist/lib/castor-core-1.4.1.jar"/>
 	<classpathentry kind="lib" path="dist/lib/castor-xml-1.4.1.jar"/>
 	<classpathentry kind="lib" path="dist/lib/commons-beanutils-1.9.4.jar"/>
@@ -17,6 +29,7 @@
 	<classpathentry kind="lib" path="dist/lib/ecj-3.21.0.jar"/>
 	<classpathentry kind="lib" path="dist/lib/flatlaf-1.6.5.jar"/>
 	<classpathentry kind="lib" path="dist/lib/h2-2.0.202.jar"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="dist/lib/itext-2.1.7.js8.jar"/>
 	<classpathentry kind="lib" path="dist/lib/jackson-annotations-2.12.2.jar"/>
 	<classpathentry kind="lib" path="dist/lib/jackson-core-2.12.2.jar"/>
@@ -26,6 +39,16 @@
 	<classpathentry kind="lib" path="dist/lib/jcommon-1.0.23.jar"/>
 	<classpathentry kind="lib" path="dist/lib/jfreechart-1.0.19.jar"/>
 	<classpathentry kind="lib" path="dist/PublicationNotes_2.0.jar"/>
+=======
+	<classpathentry kind="lib" path="dist/lib/itext-2.1.7.js9.jar"/>
+	<classpathentry kind="lib" path="dist/lib/jackson-annotations-2.12.2.jar"/>
+	<classpathentry kind="lib" path="dist/lib/jackson-core-2.12.2.jar"/>
+	<classpathentry kind="lib" path="dist/lib/jackson-databind-2.12.2.jar"/>
+	<classpathentry kind="lib" path="dist/lib/jasperreports-6.18.1.jar"/>
+	<classpathentry kind="lib" path="dist/lib/javax.inject-1.jar"/>
+	<classpathentry kind="lib" path="dist/lib/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="dist/lib/jfreechart-1.0.19.jar"/>
+>>>>>>> aedac6da8ac8f577bd34ad3383802b5c92eb03e5
 	<classpathentry kind="lib" path="lib/apiguardian-api-1.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/junit-jupiter-5.4.2.jar"/>
 	<classpathentry kind="lib" path="lib/junit-jupiter-api-5.4.2.jar"/>
@@ -34,5 +57,9 @@
 	<classpathentry kind="lib" path="lib/junit-platform-commons-1.4.2.jar"/>
 	<classpathentry kind="lib" path="lib/junit-platform-engine-1.4.2.jar"/>
 	<classpathentry kind="lib" path="lib/opentest4j-1.1.1.jar"/>
+<<<<<<< HEAD
 	<classpathentry kind="output" path="build/classes"/>
+=======
+	<classpathentry kind="output" path="out/production/PublicationNotes_2.0"/>
+>>>>>>> aedac6da8ac8f577bd34ad3383802b5c92eb03e5
 </classpath>
