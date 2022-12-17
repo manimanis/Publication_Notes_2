@@ -230,7 +230,10 @@ public class XmlFile {
                     } else {
                         eleveRow = groupe.getEleveRow(pRow);
                     }
-                    int pIndex = groupe.getEpreuves().findByIds(Integer.parseInt(hm.get("CODEMATI")), Integer.parseInt(hm.get("CODETYPEMATI")), Integer.parseInt(hm.get("CODETYPEEPRE")));
+                    int pIndex = groupe.getEpreuves().findByIds(Integer.parseInt(hm.get("CODEMATI")), 
+                    		Integer.parseInt(hm.get("CODETYPEMATI")), 
+                    		Integer.parseInt(hm.get("CODETYPEEPRE")),
+                    		Integer.parseInt(hm.get("NUMEEPRE")));
                     groupe.getRowCollection().setNote(pRow, pIndex, new Note(hm.get("NOTEEPRE")));
                     break;
             }

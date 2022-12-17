@@ -18,10 +18,10 @@ public class EpreuvesCollection extends ArrayList<Epreuve> implements CloneableA
 
     }
 
-    public int findByIds(int codeMatiere, int codeTypeMatiere, int codeTypeEpreuve) {
+    public int findByIds(int codeMatiere, int codeTypeMatiere, int codeTypeEpreuve, int numEpreuve) {
         for (int i = 0; i < size(); i++) {
             Epreuve ep = get(i);
-            if (ep.getDiscipline().getCodeMatiere() == codeMatiere && ep.getCodeTypeMatiere() == codeTypeMatiere && ep.getCodeTypeEpreuve() == codeTypeEpreuve) {
+            if (ep.getDiscipline().getCodeMatiere() == codeMatiere && ep.getCodeTypeMatiere() == codeTypeMatiere && ep.getCodeTypeEpreuve() == codeTypeEpreuve && ep.getNumEpreuve() == numEpreuve) {
                 return i;
             }
         }
