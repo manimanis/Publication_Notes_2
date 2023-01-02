@@ -152,6 +152,15 @@ public class XmlFile {
         return groupe;
     }
     
+    private static String getHM(HashMap<String, String> hm, String key, String defaultValue) {
+        if (hm.containsKey(key)) return hm.get(key);
+        return defaultValue;
+    }
+    
+    private static String getHM(HashMap<String, String> hm, String key) {
+        return getHM(hm, key, "");
+    }
+    
     private static boolean treatHeader(Document doc, Groupe groupe) {
         Element elem = doc.getDocumentElement();
         if (!"notelev_xml".equals(elem.getNodeName())) {
@@ -219,15 +228,15 @@ public class XmlFile {
                     HashMap<String, String> hm = treatEleveRow(node);
                     EleveRowCollection eleves = groupe.getRowCollection();
                     EleveRow eleveRow = null;
-                    int pRow = eleves.findByIdentEleve(hm.get("IDENELEV"));
+                    int pRow = eleves.findByIdentEleve(getHM(hm, "IDENELEV"));
                     if (pRow == -1) {
                         eleveRow = new EleveRow(groupe.getEpreuves().size());
                         groupe.getRowCollection().add(eleveRow);
-                        eleveRow.setIdentEleve(hm.get("IDENELEV"));
-                        eleveRow.setNomEleve(hm.get("prenomnom"));
-                        eleveRow.setPrenomTuteur(hm.get("prenomtute").trim());
-                        eleveRow.setNumOrdre(Integer.parseInt(hm.get("numOrdre")));
-                        eleveRow.setObservation(hm.get("obseprof"));
+                        eleveRow.setIdentEleve(getHM(hm, "IDENELEV"));
+                        eleveRow.setNomEleve(getHM(hm,"prenomnom"));
+                        eleveRow.setPrenomTuteur(getHM(hm,"prenomtute").trim());
+                        eleveRow.setNumOrdre(Integer.parseInt(getHM(hm,"numOrdre")));
+                        eleveRow.setObservation(getHM(hm,"obseprof"));
                         pRow = eleves.size() - 1;
                     } else {
                         eleveRow = groupe.getEleveRow(pRow);

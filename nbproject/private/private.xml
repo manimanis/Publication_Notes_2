@@ -2,18 +2,10 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
-        <group/>
-=======
         <group>
-            <file>file:/home/manianis/NetBeansProjects/PublicationNotes_2.0/test/tn/manianis/utils/LRUFileCollectionTest.java</file>
-            <file>file:/home/manianis/NetBeansProjects/PublicationNotes_2.0/src/tn/manianis/frames/WaitDialog.java</file>
-            <file>file:/home/manianis/NetBeansProjects/PublicationNotes_2.0/src/tn/manianis/frames/FeuilleNoteFrame.java</file>
-            <file>file:/home/manianis/NetBeansProjects/PublicationNotes_2.0/src/publicationnotes_2/pkg0/PublicationNotes_20.java</file>
-            <file>file:/home/manianis/NetBeansProjects/PublicationNotes_2.0/src/tn/manianis/frames/ExportFilesFrame.java</file>
-            <file>file:/home/manianis/NetBeansProjects/PublicationNotes_2.0/src/tn/manianis/tablemodels/XmlFilesEntriesModel.java</file>
-            <file>file:/home/manianis/NetBeansProjects/PublicationNotes_2.0/src/tn/manianis/entities/EleveRow.java</file>
+            <file>file:/D:/javaprogs/Publication_Notes_2/src/tn/manianis/entities/EleveRow.java</file>
+            <file>file:/D:/javaprogs/Publication_Notes_2/src/tn/manianis/XmlFile.java</file>
+            <file>file:/D:/javaprogs/Publication_Notes_2/src/tn/manianis/frames/FeuilleNoteFrame.java</file>
         </group>
->>>>>>> aedac6da8ac8f577bd34ad3383802b5c92eb03e5
     </open-files>
 </project-private>

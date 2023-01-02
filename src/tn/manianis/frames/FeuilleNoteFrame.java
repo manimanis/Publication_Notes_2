@@ -5,6 +5,12 @@
  */
 package tn.manianis.frames;
 
+import java.awt.HeadlessException;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import tn.manianis.XmlFile;
 
 import javax.swing.*;
@@ -28,8 +34,10 @@ import tn.manianis.utils.EditableCellFocusAction;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.sf.jasperreports.engine.JRException;
@@ -153,6 +161,20 @@ public class FeuilleNoteFrame extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 shortcutKeyPressed("F3");
+            }
+        });
+        rowTable.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("control C"), "CTRL-C");
+        rowTable.getActionMap().put("CTRL-C", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                shortcutKeyPressed("CTRL-C");
+            }
+        });
+        rowTable.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("control V"), "CTRL-V");
+        rowTable.getActionMap().put("CTRL-V", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                shortcutKeyPressed("CTRL-V");
             }
         });
     }
@@ -667,6 +689,37 @@ public class FeuilleNoteFrame extends JInternalFrame {
             tableModel.setMultipleColumns(modelRow,
                     tableModel.getFirstNoteColumnIndex(),
                     tableModel.getLastNoteColumnIndex(), Note.NON_AFFECTEE);
+        } else if (shortcutKeyName.equals("CTRL-C")) {
+            StringBuilder sb = new StringBuilder();
+            int currentColumn = rowTable.getSelectedColumn();
+            for (int rows = 0; rows < tableModel.getRowCount(); rows++) {
+                sb.append(tableModel.getValueAt(rows, currentColumn));
+                sb.append("\n");
+            }
+            StringSelection stsel = new StringSelection(sb.toString());
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stsel, stsel);
+        } else if (shortcutKeyName.equals("CTRL-V")) {
+            try {
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                final String trString = (String) (clipboard.getContents(this).getTransferData(DataFlavor.stringFlavor));
+                final String[] splitedValues = trString.split("\n");
+                int selCol = rowTable.convertColumnIndexToModel(rowTable.getSelectedColumn());
+                if (tableModel.isCellEditable(0, selCol) && splitedValues.length == tableModel.getRowCount()) {
+                    Class selColClass = tableModel.getColumnClass(selCol);
+                    System.out.println(selColClass);
+                    for (int row = 0; row < tableModel.getRowCount(); row++) {
+                        if (selColClass == String.class) {
+                            tableModel.setValueAt(splitedValues[row], row, selCol);   
+                        } else if (selColClass == Note.class) {
+                            tableModel.setValueAt(new Note(splitedValues[row]), row, selCol);   
+                        }
+                    }
+                }
+                // if (splitedValues.length == tableModel.getRowCount())
+            } catch (HeadlessException | UnsupportedFlavorException | IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 

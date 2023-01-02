@@ -216,7 +216,8 @@ public class ExportFilesFrame extends JInternalFrame {
                         int p = groupe.getEpreuves().findByIds(
                                 epreuve.getDiscipline().getCodeMatiere(),
                                 epreuve.getCodeTypeMatiere(),
-                                epreuve.getCodeTypeEpreuve()
+                                epreuve.getCodeTypeEpreuve(),
+                                epreuve.getNumEpreuve()
                         );
                         if (p != -1) {
                             groupe.getEpreuve(p).setCoefficient(epreuve.getCoefficient());
