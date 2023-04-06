@@ -29,7 +29,7 @@ import tn.manianis.entities.*;
  * @author manianis
  */
 public class XmlFile {
-    
+
     public static void printDocument(Document doc, OutputStream out) throws IOException, TransformerException {
         TransformerFactory tf = TransformerFactory.newInstance();
         Transformer transformer = tf.newTransformer();
@@ -38,25 +38,25 @@ public class XmlFile {
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
         transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-        
+
         transformer.transform(new DOMSource(doc),
                 new StreamResult(new OutputStreamWriter(out, "UTF-8")));
     }
-    
+
     public static void addElement(Document doc, Node node, String elem, String value) {
         Element el = doc.createElement(elem);
         el.setTextContent(value);
         node.appendChild(el);
     }
-    
+
     public static boolean saveFile(Groupe groupe, String filename) {
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.newDocument();
-            
+
             buildXmlDocument(doc, groupe);
-            
+
             printDocument(doc, new FileOutputStream(filename));
             return true;
         } catch (ParserConfigurationException | IOException | TransformerException ex) {
@@ -64,17 +64,17 @@ public class XmlFile {
             return false;
         }
     }
-    
+
     private static void buildXmlDocument(Document doc, Groupe groupe) {
         // root element
         Element root = doc.createElement("notelev_xml");
         doc.appendChild(root);
-        
+
         buildXmlHeader(doc, root, groupe);
         buildXmlTypesEpreuves(doc, root, groupe.getEpreuves());
         buildXmlNotesEleves(doc, root, groupe);
     }
-    
+
     private static void buildXmlHeader(Document doc, Element root, Groupe groupe) {
         addElement(doc, root, "iuense", groupe.getEnseignant().getIdenUnique());
         addElement(doc, root, "libens", groupe.getEnseignant().getNomEnseignant());
@@ -93,12 +93,12 @@ public class XmlFile {
         addElement(doc, root, "codedisc", groupe.getDiscipline().getCodeDiscipline().toString());
         addElement(doc, root, "libedisc", groupe.getDiscipline().getNomDiscipline());
     }
-    
+
     private static void buildXmlTypesEpreuves(Document doc, Element root, EpreuvesCollection epreuves) {
         for (Epreuve epreuve : epreuves) {
             Element typeepr = doc.createElement("typeepr");
             root.appendChild(typeepr);
-            
+
             addElement(doc, typeepr, "CODEMATI", epreuve.getDiscipline().getCodeMatiere().toString());
             addElement(doc, typeepr, "CODETYPEMATI", epreuve.getCodeTypeMatiere().toString());
             addElement(doc, typeepr, "CODETYPEEPRE", epreuve.getCodeTypeEpreuve().toString());
@@ -110,8 +110,30 @@ public class XmlFile {
             addElement(doc, typeepr, "abretypeeprear", epreuve.getAbbrNomEpreuve());
         }
     }
-    
+
     private static void buildXmlNotesEleves(Document doc, Element root, Groupe groupe) {
+        for (int numEpreuve = 0; numEpreuve < groupe.getEpreuves().size(); numEpreuve++) {
+            Epreuve epreuve = groupe.getEpreuve(numEpreuve);
+            for (EleveRow row : groupe.getRowCollection()) {
+                Element noteelev = doc.createElement("noteelev");
+                root.appendChild(noteelev);
+
+                addElement(doc, noteelev, "numOrdre", row.getNumOrdre().toString());
+                addElement(doc, noteelev, "prenomnom", row.getNomEleve());
+                addElement(doc, noteelev, "prenomtute", row.getPrenomTuteur());
+                addElement(doc, noteelev, "CODEMATI", epreuve.getDiscipline().getCodeMatiere().toString());
+                addElement(doc, noteelev, "CODETYPEMATI", epreuve.getCodeTypeMatiere().toString());
+                addElement(doc, noteelev, "CODETYPEEPRE", epreuve.getCodeTypeEpreuve().toString());
+                addElement(doc, noteelev, "NUMEEPRE", epreuve.getNumEpreuve().toString());
+                addElement(doc, noteelev, "IDENELEV", row.getIdentEleve());
+                addElement(doc, noteelev, "NOTEEPRE", row.getNote(numEpreuve).toString());
+                addElement(doc, noteelev, "CODEETAB", groupe.getEtablissement().getCodeEtablissement().toString());
+                addElement(doc, noteelev, "libTypeEpr", epreuve.getNomEpreuve());
+                addElement(doc, noteelev, "libeMat", epreuve.getDiscipline().getNomMatiere());
+                addElement(doc, noteelev, "obseprof", row.getObservation());
+            }
+        }
+        /*
         for (EleveRow row : groupe.getRowCollection()) {
             int index = 0;
             for (Note note : row.getNotes()) {
@@ -136,8 +158,9 @@ public class XmlFile {
                 index++;
             }
         }
+         */
     }
-    
+
     public static Groupe loadFile(String filename) throws Exception {
         //creating a constructor of file class and parsing an XML file
         File file = new File(filename);
@@ -151,16 +174,18 @@ public class XmlFile {
         treatHeader(doc, groupe);
         return groupe;
     }
-    
+
     private static String getHM(HashMap<String, String> hm, String key, String defaultValue) {
-        if (hm.containsKey(key)) return hm.get(key);
+        if (hm.containsKey(key)) {
+            return hm.get(key);
+        }
         return defaultValue;
     }
-    
+
     private static String getHM(HashMap<String, String> hm, String key) {
         return getHM(hm, key, "");
     }
-    
+
     private static boolean treatHeader(Document doc, Groupe groupe) {
         Element elem = doc.getDocumentElement();
         if (!"notelev_xml".equals(elem.getNodeName())) {
@@ -233,18 +258,18 @@ public class XmlFile {
                         eleveRow = new EleveRow(groupe.getEpreuves().size());
                         groupe.getRowCollection().add(eleveRow);
                         eleveRow.setIdentEleve(getHM(hm, "IDENELEV"));
-                        eleveRow.setNomEleve(getHM(hm,"prenomnom"));
-                        eleveRow.setPrenomTuteur(getHM(hm,"prenomtute").trim());
-                        eleveRow.setNumOrdre(Integer.parseInt(getHM(hm,"numOrdre")));
-                        eleveRow.setObservation(getHM(hm,"obseprof"));
+                        eleveRow.setNomEleve(getHM(hm, "prenomnom"));
+                        eleveRow.setPrenomTuteur(getHM(hm, "prenomtute").trim());
+                        eleveRow.setNumOrdre(Integer.parseInt(getHM(hm, "numOrdre")));
+                        eleveRow.setObservation(getHM(hm, "obseprof"));
                         pRow = eleves.size() - 1;
                     } else {
                         eleveRow = groupe.getEleveRow(pRow);
                     }
-                    int pIndex = groupe.getEpreuves().findByIds(Integer.parseInt(hm.get("CODEMATI")), 
-                    		Integer.parseInt(hm.get("CODETYPEMATI")), 
-                    		Integer.parseInt(hm.get("CODETYPEEPRE")),
-                    		Integer.parseInt(hm.get("NUMEEPRE")));
+                    int pIndex = groupe.getEpreuves().findByIds(Integer.parseInt(hm.get("CODEMATI")),
+                            Integer.parseInt(hm.get("CODETYPEMATI")),
+                            Integer.parseInt(hm.get("CODETYPEEPRE")),
+                            Integer.parseInt(hm.get("NUMEEPRE")));
                     groupe.getRowCollection().setNote(pRow, pIndex, new Note(hm.get("NOTEEPRE")));
                     break;
             }
@@ -268,7 +293,7 @@ public class XmlFile {
         groupe.getRowCollection().recalcAverages();
         return true;
     }
-    
+
     private static Epreuve treatTypeEpreuve(Groupe groupe, Node node) {
         Epreuve epreuve = new Epreuve();
         epreuve.setEtablissement(groupe.getEtablissement());
@@ -303,7 +328,7 @@ public class XmlFile {
         }
         return epreuve;
     }
-    
+
     private static HashMap<String, String> treatEleveRow(Node node) {
         HashMap<String, String> hm = new HashMap<>();
         // EleveRow eleveRow = new EleveRow(groupe.getEpreuves().size());
