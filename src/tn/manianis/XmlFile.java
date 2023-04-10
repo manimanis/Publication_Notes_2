@@ -105,13 +105,14 @@ public class XmlFile {
             addElement(doc, typeepr, "NUMEEPRE", epreuve.getNumEpreuve().toString());
             addElement(doc, typeepr, "NOTEEPRE", epreuve.getNoteEpreuve().toString());
             addElement(doc, typeepr, "CODEETAB", epreuve.getEtablissement().getCodeEtablissement().toString());
+            addElement(doc, typeepr, "abretypeeprear", epreuve.getAbbrNomEpreuve());
             addElement(doc, typeepr, "libTypeEpr", epreuve.getNomEpreuve());
             addElement(doc, typeepr, "libeMat", epreuve.getDiscipline().getNomMatiere());
-            addElement(doc, typeepr, "abretypeeprear", epreuve.getAbbrNomEpreuve());
         }
     }
 
     private static void buildXmlNotesEleves(Document doc, Element root, Groupe groupe) {
+        /*
         for (int numEpreuve = 0; numEpreuve < groupe.getEpreuves().size(); numEpreuve++) {
             Epreuve epreuve = groupe.getEpreuve(numEpreuve);
             for (EleveRow row : groupe.getRowCollection()) {
@@ -120,20 +121,23 @@ public class XmlFile {
 
                 addElement(doc, noteelev, "numOrdre", row.getNumOrdre().toString());
                 addElement(doc, noteelev, "prenomnom", row.getNomEleve());
-                addElement(doc, noteelev, "prenomtute", row.getPrenomTuteur());
+                addElement(doc, noteelev, "CODENIVE", groupe.getCodeNiveau());
                 addElement(doc, noteelev, "CODEMATI", epreuve.getDiscipline().getCodeMatiere().toString());
                 addElement(doc, noteelev, "CODETYPEMATI", epreuve.getCodeTypeMatiere().toString());
+                addElement(doc, noteelev, "CODEPERIEXAM", groupe.getPeriodeExamen().getCodePeriodeExamen().toString());
                 addElement(doc, noteelev, "CODETYPEEPRE", epreuve.getCodeTypeEpreuve().toString());
                 addElement(doc, noteelev, "NUMEEPRE", epreuve.getNumEpreuve().toString());
                 addElement(doc, noteelev, "IDENELEV", row.getIdentEleve());
                 addElement(doc, noteelev, "NOTEEPRE", row.getNote(numEpreuve).toString());
                 addElement(doc, noteelev, "CODEETAB", groupe.getEtablissement().getCodeEtablissement().toString());
-                addElement(doc, noteelev, "libTypeEpr", epreuve.getNomEpreuve());
-                addElement(doc, noteelev, "libeMat", epreuve.getDiscipline().getNomMatiere());
+                addElement(doc, noteelev, "abretypeeprar", ""); // vide
+                addElement(doc, noteelev, "libTypeEpr", ""); // vide
+                //addElement(doc, noteelev, "libeMat", epreuve.getDiscipline().getNomMatiere()); // supprimé
+                addElement(doc, noteelev, "prenomtute", row.getPrenomTuteur());
                 addElement(doc, noteelev, "obseprof", row.getObservation());
             }
         }
-        /*
+        */
         for (EleveRow row : groupe.getRowCollection()) {
             int index = 0;
             for (Note note : row.getNotes()) {
@@ -143,22 +147,24 @@ public class XmlFile {
                 
                 addElement(doc, noteelev, "numOrdre", row.getNumOrdre().toString());
                 addElement(doc, noteelev, "prenomnom", row.getNomEleve());
-                addElement(doc, noteelev, "prenomtute", row.getPrenomTuteur());
+                addElement(doc, noteelev, "CODENIVE", groupe.getCodeNiveau());
                 addElement(doc, noteelev, "CODEMATI", epreuve.getDiscipline().getCodeMatiere().toString());
                 addElement(doc, noteelev, "CODETYPEMATI", epreuve.getCodeTypeMatiere().toString());
+                addElement(doc, noteelev, "CODEPERIEXAM", groupe.getPeriodeExamen().getCodePeriodeExamen().toString());
                 addElement(doc, noteelev, "CODETYPEEPRE", epreuve.getCodeTypeEpreuve().toString());
                 addElement(doc, noteelev, "NUMEEPRE", epreuve.getNumEpreuve().toString());
                 addElement(doc, noteelev, "IDENELEV", row.getIdentEleve());
                 addElement(doc, noteelev, "NOTEEPRE", note.toString());
                 addElement(doc, noteelev, "CODEETAB", groupe.getEtablissement().getCodeEtablissement().toString());
-                addElement(doc, noteelev, "libTypeEpr", epreuve.getNomEpreuve());
-                addElement(doc, noteelev, "libeMat", epreuve.getDiscipline().getNomMatiere());
+                addElement(doc, noteelev, "abretypeeprar", ""); // vide
+                addElement(doc, noteelev, "libTypeEpr", ""); // vide
+                //addElement(doc, noteelev, "libeMat", epreuve.getDiscipline().getNomMatiere()); // supprimé
+                addElement(doc, noteelev, "prenomtute", row.getPrenomTuteur());
                 addElement(doc, noteelev, "obseprof", row.getObservation());
                 
                 index++;
             }
         }
-         */
     }
 
     public static Groupe loadFile(String filename) throws Exception {

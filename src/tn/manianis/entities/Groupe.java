@@ -127,4 +127,8 @@ public class Groupe {
         return rowCollection.get(pRow);
     }
     
+    public String getCodeNiveau() {
+        return classe.getCodeNiveau().toString();
+    }
+    
 }
